@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  # 1. ฐานข้อมูล MariaDB
+  db:
+    image: mariadb:latest
+    restart: always
+    command: --default-time-zone="+07:00"
+    environment:
+      TZ: Asia/Bangkok
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: smartbag_db
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: '1234'
+    volumes:
+      - db_data:/var/lib/mysql
+      - /etc/localtime:/etc/localtime:ro
+  # 2. MQTT Broker
+  mqtt:
+    image: eclipse-mosquitto:latest
+    restart: always
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
+
+  # 3. ตัวระบบ Smart Bag (Node.js)
+  app:
+    build: .
+    restart: always
+    environment:
+      TZ: Asia/Bangkok 
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+      - mqtt
+
+  # 4. phpMyAdmin (เพิ่มเข้ามาเพื่อให้เหมือนในคอม)
+  phpmyadmin:
+    image: phpmyadmin:5.2-apache
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: db
+      PMA_USER: admin
+      PMA_PASSWORD: '1234'
+    depends_on:
+      - db
+
+volumes:
+  db_data:  
