@@ -1,34 +1,32 @@
-/* เปลี่ยน URL เป็นฟอนต์ Prompt (แก้สระลอย/ตก และดูทันสมัย) */
 @import url("https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap");
 
 /* =====================================================
-   1) VARIABLES
+   1) VARIABLES — DARK PREMIUM THEME
 ===================================================== */
 :root {
-  --primary: #3b82f6;       
-  --primary-light: #eff6ff;
-  --primary-hover: #2563eb; 
-  
-  --success: #10b981;
-  --success-bg: #d1fae5;
-  
+  --primary: #3b82f6;
+  --primary-light: rgba(59,130,246,0.15);
+  --primary-hover: #2563eb;
+
+  --success: #22d3ee;
+  --success-bg: rgba(34,211,238,0.15);
+
   --warning: #f59e0b;
-  --warning-bg: #fef3c7;
-  
+  --warning-bg: rgba(245,158,11,0.15);
+
   --danger: #ef4444;
-  --danger-bg: #fee2e2;
+  --danger-bg: rgba(239,68,68,0.15);
 
-  --bg: #f3f4f6;
-  --card: #ffffff;
-  
-  --text: #1f2937;
-  --muted: #6b7280;
-  --border: #e5e7eb;       
+  --bg: #0f172a;
+  --card: rgba(30,41,59,0.7);
 
-  /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --text: #f1f5f9;
+  --muted: #94a3b8;
+  --border: rgba(255,255,255,0.05);
+
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.4);
+  --shadow-card: 0 20px 40px rgba(0,0,0,0.6);
+  --shadow-hover: 0 25px 50px rgba(0,0,0,0.7);
 }
 
 /* =====================================================
@@ -39,12 +37,12 @@
 body {
   margin: 0;
   min-height: 100vh;
-  font-family: "Prompt", sans-serif; /* ฟอนต์ใหม่ อ่านง่าย ไม่ตกขอบ */
-  background: var(--bg);
+  font-family: "Prompt", sans-serif;
+  background: radial-gradient(circle at top left, #1e293b, #0f172a);
   color: var(--text);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden; /* ป้องกันสกรอลบาร์แนวนอนเกินจำเป็น */
+  overflow-x: hidden;
 }
 
 /* =====================================================
@@ -57,10 +55,10 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.8rem 2rem; /* padding ด้านข้างพอประมาณ */
-  background: rgba(255, 255, 255, 0.9);
+  padding: 0.8rem 2rem;
+  background: rgba(15, 23, 42, 0.8);
   backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255,255,255,0.3);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
   box-shadow: var(--shadow-sm);
 }
 
@@ -80,10 +78,13 @@ body {
   font-size: 0.95rem;
   color: var(--muted);
   position: relative;
-  transition: color 0.2s ease;
+  transition: 0.2s ease;
 }
 
-.nav-links a:hover, .nav-links a.active { color: var(--primary); }
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--primary);
+}
 
 .nav-links a.active::after {
   content: "";
@@ -97,14 +98,11 @@ body {
 }
 
 /* =====================================================
-   4) PAGE & HEADER (จุดที่แก้ให้เต็มจอ)
+   4) PAGE & HEADER
 ===================================================== */
 .page-content {
   width: 100%;
-  /* max-width: 1600px;  <-- ลบอันเก่าออก หรือเปลี่ยนเป็น none */
-  max-width: 100%;    /* ให้กว้างเต็มพื้นที่ 100% */
-  margin: 0;
-  padding: 2rem 3rem; /* เพิ่ม padding ด้านข้างให้เนื้อหาไม่ติดขอบจอเกินไป */
+  padding: 2rem 3rem;
 }
 
 .header {
@@ -118,8 +116,6 @@ body {
   margin: 0;
   font-size: 2.2rem;
   font-weight: 700;
-  color: var(--text);
-  line-height: 1.2;
 }
 
 .header h2 {
@@ -147,53 +143,49 @@ body {
   border-radius: 99px;
   font-size: 0.85rem;
   font-weight: 600;
-  background: white;
+  background: rgba(255,255,255,0.05);
   border: 1px solid var(--border);
-  box-shadow: var(--shadow-sm);
-  color: var(--text);
 }
 
 .status.is-success {
   color: var(--success);
   background: var(--success-bg);
-  border-color: transparent;
 }
 
 .status.is-error {
   color: var(--danger);
   background: var(--danger-bg);
-  border-color: transparent;
 }
 
-.status-detail { font-size: 0.8rem; color: var(--muted); }
+.status-detail {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
 
 /* =====================================================
-   6) DASHBOARD LAYOUT (ปรับสัดส่วนใหม่)
+   6) DASHBOARD LAYOUT
 ===================================================== */
 .dashboard {
   display: grid;
-  /* ปรับสัดส่วน: ฝั่งซ้าย 25% (สถานะ) / ฝั่งขวา 75% (แผนที่) */
-  /* หรือใช้ minmax เพื่อไม่ให้ฝั่งซ้ายเล็กเกินไป */
-  grid-template-columns: minmax(350px, 1fr) 3fr; 
+  grid-template-columns: minmax(350px, 1fr) 3fr;
   gap: 1.5rem;
-  width: 100%;
 }
 
 /* =====================================================
-   7) CARD
+   7) CARD (Glass Effect)
 ===================================================== */
 .card {
   background: var(--card);
-  border: 1px solid rgba(0,0,0,0.03);
+  backdrop-filter: blur(16px);
   border-radius: 20px;
   padding: 2rem;
+  border: 1px solid rgba(255,255,255,0.05);
   box-shadow: var(--shadow-card);
-  transition: transform 0.2s, box-shadow 0.2s;
-  height: 100%; /* ให้การ์ดยืดเต็มความสูง grid */
+  transition: 0.3s ease;
 }
 
 .card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-6px);
   box-shadow: var(--shadow-hover);
 }
 
@@ -210,33 +202,13 @@ body {
 /* =====================================================
    8) MAIN STATUS CARD
 ===================================================== */
-.main-status-card { display: flex; flex-direction: column; }
-
-.main-stats-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 .big {
   font-size: 4rem;
   font-weight: 700;
-  line-height: 1;
-  color: var(--text);
-  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, #22d3ee, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
-
-.safety-status-value {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 1.25rem;
-  font-weight: 600;
-  padding: 8px 16px;
-  border-radius: 12px;
-}
-
-.sub-detail-row { font-size: 0.9rem; color: var(--muted); }
 
 .sub-stats-row {
   display: flex;
@@ -246,46 +218,37 @@ body {
   border-top: 1px dashed var(--border);
 }
 
-.sub-stat-item { display: flex; flex-direction: column; gap: 4px; }
-.sub-label { font-size: 0.75rem; text-transform: uppercase; font-weight: 600; color: var(--muted); }
-.sub-value { font-size: 1.1rem; font-weight: 600; color: var(--text); }
+.sub-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.sub-value {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
 
 /* =====================================================
-   9) MAP CARD (ปรับให้สูงเท่ากับ 3 การ์ดฝั่งซ้าย)
+   9) MAP CARD
 ===================================================== */
 .map-card {
-  /* จัดตำแหน่งใน Grid */
-  grid-column: 2 / 3;       /* อยู่คอลัมน์ขวา */
-  grid-row: 1 / 4;          /* <--- จุดสำคัญ: สั่งให้ยาวคลุมแถวที่ 1 ถึง 4 (ครอบคลุม 3 การ์ดซ้าย) */
-  
-  /* จัด Layout ภายในให้ยืดเต็ม */
-  padding: 0; 
+  grid-column: 2 / 3;
+  grid-row: 1 / 4;
+  padding: 0;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  height: 100%;             /* ยืดความสูงให้เต็มพื้นที่ Grid area */
+  border-radius: 24px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.7);
 }
 
 .map-box {
-  flex: 1;                  /* <--- สั่งให้กล่องแผนที่ยืดจนเต็มพื้นที่ที่เหลือ */
+  flex: 1;
   width: 100%;
-  min-height: 0;            /* เทคนิคแก้บั๊ก Flex ให้ยืดหดได้จริง */
-  background: #e5e7eb;
-  position: relative;
-}
-
-/* =====================================================
-   RESPONSIVE (แก้บั๊กมือถือ)
-===================================================== */
-@media (max-width: 1200px) {
-    .dashboard {
-        grid-template-columns: 1fr; /* กลับมาเป็นคอลัมน์เดียว */
-    }
-    .map-card {
-        grid-column: auto;
-        grid-row: auto;     /* ยกเลิกการยืดแถวในมือถือ */
-        min-height: 500px;  /* กำหนดความสูงขั้นต่ำในมือถือแทน */
-    }
+  min-height: 0;
+  background: #111827;
 }
 
 /* =====================================================
@@ -296,23 +259,22 @@ body {
   padding: 14px;
   border: none;
   border-radius: 14px;
-  background: var(--primary);
+  background: linear-gradient(135deg, #3b82f6, #06b6d4);
   color: #ffffff;
   font-family: "Prompt", sans-serif;
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s;
-  box-shadow: 0 4px 6px rgba(59, 130, 246, 0.3);
+  transition: 0.2s ease;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
 }
 
 .btn:hover {
-  background: var(--primary-hover);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
 }
 
 /* =====================================================
-   11) TABLE STYLES (FULL WIDTH)
+   11) TABLE
 ===================================================== */
 .table-responsive {
   width: 100%;
@@ -322,14 +284,11 @@ body {
 
 table {
   width: 100%;
-  table-layout: fixed; /* บังคับให้คอลัมน์เฉลี่ยเท่ากัน หรือตามที่เรากำหนด */
-  border-collapse: separate; 
-  border-spacing: 0; 
-  min-width: 1000px; /* ถ้าจอมือถือเล็ก จะให้เลื่อนเอา */
+  border-collapse: collapse;
+  min-width: 1000px;
 }
 
 th {
-  background-color: transparent;
   color: var(--muted);
   font-weight: 600;
   font-size: 0.85rem;
@@ -337,75 +296,38 @@ th {
   border-bottom: 1px solid var(--border);
   text-align: left;
 }
-/* ปรับสัดส่วนคอลัมน์ */
-th:nth-child(1) { width: 15%; padding-left: 20px;} /* เวลา */
-th:nth-child(2) { width: 15%; } /* Lat */
-th:nth-child(3) { width: 15%; } /* Lng */
-th:nth-child(4) { width: 10%; text-align: center; } /* Speed */
-th:nth-child(5) { width: 10%; text-align: center; } /* Status */
-th:nth-child(6) { width: 35%; text-align: right; padding-right: 20px;} /* Map */
 
 td {
   padding: 18px 16px;
   border-bottom: 1px solid var(--border);
-  color: var(--text);
   font-size: 0.95rem;
-  vertical-align: middle;
-  text-align: left;
-  white-space: nowrap;
 }
 
-td:nth-child(1) { padding-left: 20px; font-weight: 500; }
-td:nth-child(4) { text-align: center; }
-td:nth-child(5) { text-align: center; }
-td:nth-child(6) { text-align: right; padding-right: 20px; }
-
-tbody tr:hover { background-color: #f9fafb; }
-
-/* Link Button */
-td a {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
-  border-radius: 99px;
-  background-color: var(--primary-light);
-  color: var(--primary);
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 0.85rem;
-  transition: all 0.2s;
-}
-
-td a:hover {
-  background-color: var(--primary);
-  color: white;
-  transform: translateY(-2px);
+tbody tr:hover {
+  background-color: rgba(255,255,255,0.03);
 }
 
 /* =====================================================
-   12) RESPONSIVE
+   RESPONSIVE
 ===================================================== */
 @media (max-width: 1200px) {
-    /* ถ้าจอเริ่มเล็ก ให้กลับมาเป็นซ้อนกัน */
-    .dashboard {
-        grid-template-columns: 1fr;
-    }
-    .map-card {
-        grid-row: auto;
-        min-height: 500px;
-    }
-    .page-content {
-        padding: 2rem;
-    }
+  .dashboard {
+    grid-template-columns: 1fr;
+  }
+  .map-card {
+    grid-column: auto;
+    grid-row: auto;
+    min-height: 500px;
+  }
 }
 
 @media (max-width: 600px) {
-  .page-content { padding: 1.5rem 1rem; }
-  .header { flex-direction: column; align-items: flex-start; gap: 1rem; }
-  .status-container { align-items: flex-start; }
-  
-  /* ปรับตารางในมือถือ */
-  th, td { font-size: 0.8rem; padding: 10px; }
-  .btn { font-size: 0.9rem; }
+  .page-content {
+    padding: 1.5rem 1rem;
+  }
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
 }

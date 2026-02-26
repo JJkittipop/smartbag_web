@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Dashboard from './Dashboard';
 import History from './assets/History';
 import './App.css';
@@ -15,12 +15,13 @@ function NavBar() {
       </div>
 
       <div className="nav-links">
-        <Link to="/" className={location.pathname === '/' ? 'active' : ''}>
+        {/* เปลี่ยนจาก <Link to="..."> เป็น <a href="#/..."> แทนครับ */}
+        <a href="#/" className={location.pathname === '/' ? 'active' : ''}>
           หน้าหลัก
-        </Link>
-        <Link to="/history" className={location.pathname === '/history' ? 'active' : ''}>
+        </a>
+        <a href="#/history" className={location.pathname === '/history' ? 'active' : ''}>
           ประวัติ
-        </Link>
+        </a>
       </div>
     </nav>
   );

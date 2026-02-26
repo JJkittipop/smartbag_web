@@ -30,7 +30,7 @@ function HistoryPage() {
       alert("ไม่มีข้อมูลสำหรับดาวน์โหลด");
       return;
     }
-    // หัวตารางให้ตรงกับหน้าเว็บ
+    
     const headers = ["ลำดับ", "วัน / เวลา", "Latitude", "Longitude", "RSSI", "สถานะ"];
     const rows = logs.map((log, index) => [
       index + 1,
@@ -42,7 +42,6 @@ function HistoryPage() {
     ]);
 
     const csvContent = [headers, ...rows].map(e => e.join(",")).join("\n");
-    // ใส่ \ufeff เพื่อให้ Excel เปิดภาษาไทยได้ถูกต้อง
     const blob = new Blob(["\ufeff" + csvContent], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
@@ -124,7 +123,8 @@ function HistoryPage() {
               <th>Lng</th>
               <th>RSSI</th>
               <th>สถานะ</th>
-              <th>แผนที่</th>
+              {/* ปรับให้คำว่า "แผนที่" ชิดขวา */}
+              <th style={{ textAlign: 'right', paddingRight: '40px' }}>แผนที่</th>
             </tr>
           </thead>
 
@@ -133,7 +133,7 @@ function HistoryPage() {
               <tr
                 key={i}
                 style={{
-                  background: i === 0 ? '#ecfeff' : 'transparent'
+                  background: i === 0 ? '#1e293b' : 'transparent'
                 }}
               >
                 <td>
@@ -145,8 +145,8 @@ function HistoryPage() {
                   </div>
                 </td>
 
-                <td>{Number(log.lat).toFixed(5)}</td>
-                <td>{Number(log.lng).toFixed(5)}</td>
+                <td>{Number(log.lat).toFixed(6)}</td>
+                <td>{Number(log.lng).toFixed(6)}</td>
                 <td>{log.rssi}</td>
 
                 <td
@@ -158,23 +158,24 @@ function HistoryPage() {
                   {log.state}
                 </td>
 
-                <td>
+                {/* ปรับให้ปุ่มชิดขวา */}
+                <td style={{ textAlign: 'right', paddingRight: '40px' }}>
                   <a
-                    href={`https://www.google.com/maps?q=${log.lat},${log.lng}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    style={{ 
-                      display: 'inline-block',
-                      color: '#2563eb', 
-                      fontWeight: 600,
-                      background: '#eff6ff',
-                      padding: '4px 8px',
-                      borderRadius: '4px',
-                      textDecoration: 'none'
-                    }}
-                  >
-                    🗺 เปิด Map
-                  </a>
+                href={`https://www.google.com/maps?q=${log.lat},${log.lng}`}
+                target="_blank"
+                rel="noreferrer"
+                style={{ 
+                  display: 'inline-block',
+                  color: '#2563eb', 
+                  fontWeight: 600,
+                  background: '#eff6ff',
+                  padding: '4px 8px',
+                  borderRadius: '4px',
+                  textDecoration: 'none'
+                }}
+              >
+                🗺 เปิด Map
+              </a>
                 </td>
               </tr>
             ))}

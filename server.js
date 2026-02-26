@@ -23,8 +23,8 @@ app.use(express.static(path.join(__dirname, 'dist')));
 /* =========================
    CONFIG LINE OA (แจ้งเตือนไลน์)
 ========================= */
-const LINE_OA_TOKEN = 'w3IQ6GcROqOxzJ+JYmhH17bcWc7hkThiwrFxm6LbrA0v915DNWjHI0xkU9nQqTHBiJsTVs+oqX6AqKOyGA8WuaNZ7x8thmL1W3J9N7xuNxmljDyk8mBrmmapUQdA6+3GyaEiztqXqp5C0XdGWbl8FQdB04t89/1O/w1cDnyilFU=';
-const MY_USER_ID = 'U3c348ad3d07006159e2e6314f18b83c8'; 
+const LINE_OA_TOKEN = 'Pds4A97xV0/6ieaU4E+cYXmbj/jdpTuC5Y3/BLsFxIT2OHq+gH/e9ep8CLVh1Yeo8KxMgrrjrEcNkhNvJ5UchSzJzWpBNaON9lbcA/FcQ9/PArTCey7XkgvZaRYx4up5n92mDZ07NXGo6SUCl1neSQdB04t89/1O/w1cDnyilFU=';
+const MY_USER_ID = 'U05a1994ac36df31ff5abf037b9291c82'; 
 
 let lastLineState = "NORMAL"; 
 
